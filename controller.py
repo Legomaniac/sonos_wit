@@ -4,6 +4,8 @@ from pprint import pprint
 # Modules from GitHub
 import soco
 
+from player import Player
+
 ###########################################
 ## IMPORTANT:                            ##
 ##  These functions must have the exact  ##
@@ -13,51 +15,53 @@ import soco
 
 class Controller:
     def __init__(self):
-        self.players = soco.discover()
-        print("Sonos players found:")
-        if self.players:
-            for player in self.players:
-                print("    " + player.player_name)
+        self.player = Player()
+        
+        self.soni = soco.discover()
+        print("Soni found:")
+        if self.soni:
+            for sonos in self.soni:
+                print("    " + sonos.player_name)
         else:
             print("Couldn't find any Sonos :(")
             sys.exit(0)
 
     def play(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                player.play()
+                sonos.play()
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
         print("Play selected")
 
     def pause(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                player.pause()
+                sonos.pause()
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
         print("Pause selected")
 
     def previous(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                player.previous()
+                sonos.previous()
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
         print("Previous selected")
 
     def next(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                player.next()
+                sonos.next()
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
         print("Next selected")
 
     def adjust_volume_up(self):
         # TO BE IMPLEMENTED
-        # for player in self.players:
-        #     player.
+        # for sonos in self.soni:
+        #     sonos.
         print("Volume up selected")
 
     def adjust_volume_down(self):
@@ -65,18 +69,20 @@ class Controller:
         print("Volume down selected")
 
     def line_in(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                player.switch_to_line_in()
-                player.play()
+                sonos.switch_to_line_in()
+                sonos.play()
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
+        ####### Test the player #######
+        self.player.play("fully_connected.wav")
         print("Line in selected")
 
     def get_info(self):
-        for player in self.players:
+        for sonos in self.soni:
             try:
-                info = player.get_current_track_info()
+                info = sonos.get_current_track_info()
                 pprint(info)
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
