@@ -4,6 +4,8 @@ from pprint import pprint
 # Modules from GitHub
 import soco
 
+import yaml
+
 from player import Player
 
 ###########################################
@@ -15,8 +17,10 @@ from player import Player
 
 class Controller:
     def __init__(self):
+        self.stations = yaml.load(open("stations.yml", 'r'))
+
         self.player = Player()
-        
+
         self.soni = soco.discover()
         print("Soni found:")
         if self.soni:
@@ -87,3 +91,18 @@ class Controller:
             except soco.exceptions.SoCoUPnPException, error:
                 print("nawp " + str(error))
         print("Info selected")
+
+    def play_pandora(self, station):
+        for sonos in self.soni:
+            try:
+                stationName = station['body']
+                try:
+                    stationUri = self.stations[stationName]['uri']
+                    stationMeta = self.stations[stationName]['uriMeta']
+                    sonos.play_uri(stationUri, stationMeta)
+                except:
+                    print("Didn't understand station name %s, sorry :(" %stationName)
+            except soco.exceptions.SoCoUPnPException, error:
+                print("nawp " + str(error))
+
+        print("Pandora selected")

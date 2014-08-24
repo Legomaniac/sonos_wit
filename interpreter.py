@@ -18,4 +18,7 @@ class Interpreter:
         print("    Entities: " + str(entities))
         print("    Intent: " + intent)
 
-        getattr(self.aController, '%s' % intent)()
+        if intent == "play_pandora":
+            getattr(self.aController, '%s' % intent)(entities['station'])
+        else:
+            getattr(self.aController, '%s' % intent)()

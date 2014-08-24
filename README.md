@@ -20,6 +20,7 @@ sonos_wit is not yet packaged as a module, so you must ensure the following are 
 - Install with pip:
   - soco
   - PyWit
+  - PyYAML
 
 - Install from package on [PyAudio's Website](http://people.csail.mit.edu/hubert/pyaudio/)
   - PyAudio
