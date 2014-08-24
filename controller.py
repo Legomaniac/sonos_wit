@@ -1,5 +1,6 @@
 # Standard Modules
 import sys
+from pprint import pprint
 # Modules from GitHub
 import soco
 
@@ -38,7 +39,11 @@ class Controller:
         print("Pause selected")
 
     def previous(self):
-        # TO BE IMPLEMENTED
+        for player in self.players:
+            try:
+                player.previous()
+            except soco.exceptions.SoCoUPnPException, error:
+                print("nawp " + str(error))
         print("Previous selected")
 
     def next(self):
@@ -58,3 +63,21 @@ class Controller:
     def adjust_volume_down(self):
         # TO BE IMPLEMENTED
         print("Volume down selected")
+
+    def line_in(self):
+        for player in self.players:
+            try:
+                player.switch_to_line_in()
+                player.play()
+            except soco.exceptions.SoCoUPnPException, error:
+                print("nawp " + str(error))
+        print("Line in selected")
+
+    def get_info(self):
+        for player in self.players:
+            try:
+                info = player.get_current_track_info()
+                pprint(info)
+            except soco.exceptions.SoCoUPnPException, error:
+                print("nawp " + str(error))
+        print("Info selected")
