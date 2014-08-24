@@ -94,15 +94,16 @@ class Controller:
 
     def play_pandora(self, station):
         for sonos in self.soni:
+            stationName = station['body']
             try:
-                stationName = station['body']
+                stationUri = self.stations[stationName]['uri']
+                stationMeta = self.stations[stationName]['uriMeta']
                 try:
-                    stationUri = self.stations[stationName]['uri']
-                    stationMeta = self.stations[stationName]['uriMeta']
                     sonos.play_uri(stationUri, stationMeta)
-                except:
-                    print("Didn't understand station name %s, sorry :(" %stationName)
-            except soco.exceptions.SoCoUPnPException, error:
-                print("nawp " + str(error))
+                except soco.exceptions.SoCoUPnPException, error:
+                    print("nawp " + str(error))
+            except:
+                print("Didn't understand station name %s, sorry :(" %stationName)
+            print("nawp " + str(error))
 
         print("Pandora selected")
