@@ -104,6 +104,5 @@ class Controller:
                     print("nawp " + str(error))
             except:
                 print("Didn't understand station name %s, sorry :(" %stationName)
-            print("nawp " + str(error))
 
         print("Pandora selected")
