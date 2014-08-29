@@ -20,5 +20,7 @@ class Interpreter:
 
         if intent == "play_pandora":
             getattr(self.aController, '%s' % intent)(entities['station'])
+        elif intent == "control":
+            getattr(self.aController, '%s' % intent)(entities['player_name'])
         else:
             getattr(self.aController, '%s' % intent)()
