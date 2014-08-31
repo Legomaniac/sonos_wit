@@ -1,6 +1,5 @@
 # Standard Modules
 import sys
-from pprint import pprint
 import logging
 # Modules from GitHub
 import soco
@@ -106,8 +105,7 @@ class Controller:
     def get_info(self):
         try:
             info = self.activeSonos.get_current_track_info()
-            prettystring = pprint(info)
-            self.logger.info(prettystring)
+            self.logger.info(info)
         except soco.exceptions.SoCoUPnPException, error:
             self.logger.info("nawp " + str(error))
         self.logger.info("Info selected")
