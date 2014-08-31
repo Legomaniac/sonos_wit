@@ -1,6 +1,7 @@
 # Standard Modules
 import time
 import wave
+import logging
 from StringIO import StringIO
 # Modules from the Interweb
 import pyaudio
@@ -11,10 +12,14 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 
+logging.basicConfig(level=logging.INFO)
+
 class Recorder:
 
     def __init__(self, seconds):
+        self.logger = logging.getLogger(__name__)
         self.seconds = seconds
+
 
     def record(self):
         # Our destination file and the recorder
@@ -28,7 +33,7 @@ class Recorder:
 
         # Start the recording
         recStart = time.strftime("%H:%M:%S")
-        print(recStart + ": Started recording")
+        self.logger.info(recStart + ": Started recording")
 
         frames = []
 
@@ -38,7 +43,7 @@ class Recorder:
 
         # Stop the recording
         recStop = time.strftime("%H:%M:%S")
-        print(recStop + ": Stopped recording")
+        self.logger.info(recStop + ": Stopped recording")
 
         stream.stop_stream()
         stream.close()
